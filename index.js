@@ -2,8 +2,10 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 require("dotenv").config();
+const DATABASE_URL =
+  "mongodb+srv://gharteysamanthas:mynameis123@temperature.yujjlll.mongodb.net/";
 
-mongoose.connect(process.env.DATABASE_URL, {
+mongoose.connect(DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
