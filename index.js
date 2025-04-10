@@ -1,18 +1,19 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000;
+const mongoose = require("mongoose");
+require("dotenv").config();
+
+mongoose.connect(process.env.DATABASE_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+const db = mongoose.connection;
+db.on("error", (error) => console.log(error));
+db.once("open", () => console.log("connected to database"));
 
 app.use(express.json());
 
-app.post("/data", (req, res) => {
-  console.log("Received data from ESP32:", req.body);
-  res.send("Data received");
-});
+const tempRouter = require("./routes/temperature.js");
+app.use("/temperature", tempRouter);
 
-app.get("/", (req, res) => {
-  res.send("Hello from your Render-hosted server!");
-});
-
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+app.listen(4000, () => console.log("started"));
