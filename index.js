@@ -1,11 +1,17 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const DATABASE_URL =
-  "mongodb+srv://gharteysamanthas:mynameis123@temperature.yujjlll.mongodb.net/";
+const DATABASE_URL = process.env.DATABASE_URL;
 
-mongoose.connect(DATABASE_URL, {
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
+mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
